@@ -1,53 +1,63 @@
-import React from 'react'
-import { useRoutes, Link } from 'react-router-dom'
+import './App.css'
+import { useRoutes } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import Events from './pages/Events'
+import EventDetails from './pages/EventsDetails';
 import Locations from './pages/Locations'
 import LocationEvents from './pages/LocationEvents'
-import Events from './pages/Events'
-import './App.css'
 
-const App = () => {
+function App() {
+  // Sets up routes
   let element = useRoutes([
     {
-      path: '/',
+      path:"/",
       element: <Locations />
     },
     {
-      path: '/echolounge',
-      element: <LocationEvents index={1} />
+      path: '/logansquare',
+      element: <LocationEvents index={1} loc='logansquare'/>
     },
     {
-      path: '/houseofblues',
-      element: <LocationEvents index={2} />
+      path: '/bucktown',
+      element: <LocationEvents index={2} loc='bucktown'/>
     },
     {
-      path: '/pavilion',
-      element: <LocationEvents index={3} />
+      path: '/downtown',
+      element: <LocationEvents index={3} loc='downtown'/>
     },
     {
-      path: '/americanairlines',
-      element: <LocationEvents index={4} />
+      path: '/wickerpark',
+      element: <LocationEvents index={4} loc='wickerpark'/>
     },
     {
-      path: '/events',
-      element: <Events />
+      path: "/events",
+      element: <Events/>
+    },
+    {
+      path:"/events/:id",
+      element: <EventDetails/>
     }
-  ])
+  ]);
 
   return (
-    <div className='app'>
-
-      <header className='main-header'>
-        <h1>UnityGrid Plaza</h1>
-
-        <div className='header-buttons'>
-          <Link to='/' role='button'>Home</Link>
-          <Link to='/events' role='button'>Events</Link>
+    <div className="app">
+      <header>
+        <div className="header-container">
+          <div className="header-left">
+            <img src="vite.svg" />
+            <h1>Inter Miami Game Schedule </h1>
+          </div>
+          <div className="header-right">
+            <Link to='/'><button>Home</button></Link>
+          </div>
+          <div className='header-right'>
+            <Link to='/events'><button>All Events</button></Link>
+          </div>
         </div>
       </header>
 
-      <main>
-        {element}
-      </main>
+      {element}
+        
     </div>
   )
 }

@@ -1,0 +1,11 @@
+.welcome {
+    font-size: 60px;
+    text-align: center;
+    color: white;
+    padding-top: 80px;
+    height: 90vh;
+    width: 100vw;
+    background-image: url(../assets/miami.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}

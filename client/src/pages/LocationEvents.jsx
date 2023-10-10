@@ -1,37 +1,36 @@
-import React, { useState, useEffect } from 'react'
-import Event from '../components/Event'
-import '../css/LocationEvents.css'
+import { useParams } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import '../css/EventsDetails.css'
+import Card from '../components/Card';
 
-const LocationEvents = ({index}) => {
-    const [location, setLocation] = useState([])
+const LocationEvents = ({index, loc}) => {
     const [events, setEvents] = useState([])
 
+
+    useEffect(() => {
+        const fetchEventById = async () => {
+            const response = await fetch(`http://localhost:3001/locations/${loc}`)
+            const json = await response.json()
+            setEvents(json)
+            console.log(json)
+        }
+        fetchEventById()
+    }, []);
+
+
     return (
-        <div className='location-events'>
-            <header>
-                <div className='location-image'>
-                    <img src={location.image} />
-                </div>
-
-                <div className='location-info'>
-                    <h2>{location.name}</h2>
-                    <p>{location.address}, {location.city}, {location.state} {location.zip}</p>
-                </div>
-            </header>
-
+        <div className="GiftDetails">
             <main>
-                {
-                    events && events.length > 0 ? events.map((event, index) =>
-                        <Event
-                            key={event.id}
-                            id={event.id}
-                            title={event.title}
-                            date={event.date}
-                            time={event.time}
-                            image={event.image}
-                        />
-                    ) : <h2><i className="fa-regular fa-calendar-xmark fa-shake"></i> {'No events scheduled at this location yet!'}</h2>
-                }
+            {
+                events && events.length > 0 ?
+                events.map((event,index) => 
+                <Card id={event.id} 
+                    image={event.image} 
+                    name={event.name} 
+                    location={event.location}/>
+
+                ) : <h3 className="noResults">{'No Events Yet 😞'}</h3>
+            }
             </main>
         </div>
     )
